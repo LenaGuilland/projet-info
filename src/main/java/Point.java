@@ -8,14 +8,19 @@
  *
  * @author liiina55
  */
-public class Point { 
+public class Point {
     //attributs
+    private int i;
     private double abs;
     private double ord;
-    private double ident;
+    
+    //variable servant à numéroter les points
+    private static int numero=0;
     
     //constructeur
     public Point(double abs, double ord){
+        this.i = numero;
+        numero++;
         this.abs=abs;
         this.ord=ord;
     }
@@ -37,19 +42,22 @@ public class Point {
         this.ord=ord;
     }
     
-    public double getIdent(){
-        return this.ident;
+    public int getIdent(){
+        return this.i;
     }
     
-    public double ident(Point A){
-        ident = A.abs+A.ord;
-        return ident;
+    //affichage
+    public String toString(){
+        String res ="Point "+i+" : ("+abs+";"+ord+")";
+        return res;
     }
     
+    //calcul de la distance entre  points
     public double distance(Point B){
         //double dabs=this.abs;
         //double dord;
         //return Math.sqrt()
-        return Math.sqrt((this.abs-B.abs)*(this.abs-B.abs)+(this.ord-B.ord)*(this.ord-B.ord));
+        return Math.sqrt((B.abs-this.abs)*(B.abs-this.abs)+(B.ord-this.ord)*(B.ord-this.ord));
     }
+    
 }
