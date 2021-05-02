@@ -15,23 +15,60 @@ public class TypeBarre {
     private double Lmin;
     private double Rtmax;
     private double Rcmax;
-    private int ident;
+    private static int ident;
+    private TypeBarre barreBois;
+    private TypeBarre barreAcier;
     
-    
-    
-    public static void bois(double cout, double Lmax, double Lmin,double Rtmax, double Rcmax){
-        cout = 4;
-        Lmax = 10;
-        Lmin = 5;
-        Rtmax = 6;
-        Rcmax = 3;
+    public TypeBarre(){
+        this.ident=ident;
+        ident++;
+        this.barreBois = new TypeBarre();
+        this.barreAcier = new TypeBarre();
     }
     
-    public static void acier(double cout, double Lmax, double Lmin,double Rtmax, double Rcmax){
-        cout = 8;
-        Lmax = 20;
-        Lmin = 10;
-        Rtmax = 7;
-        Rcmax = 5;
+    /*public static void barreAcier(){
     }
+    public static void barrBois(){
+    }*/
+    
+    public double getCout(){
+        cout=this.cout;
+        return cout;
+    }
+    public void setCout(double a){
+        this.cout=a;
+    }
+    
+    public double getLmax(){
+        Lmax=this.Lmax;
+        return Lmax;
+    }
+    public void setLmax(double a){
+        this.Lmax=a;
+    }
+    
+    public double getLmin(){
+        Lmin=this.Lmin;
+        return Lmin;
+    }
+    public void setLmin(double a){
+        this.Lmin=a;
+    }
+    
+    public double getRtmax(){
+        Rtmax=this.Rtmax;
+        return Rtmax;
+    }
+    public void setRtmax(double a){
+        this.Rtmax=a;
+    }
+        
+    public double getRcmax(){
+        Rcmax=this.Rcmax;
+        return Rcmax;
+    }
+    public void setRcmax(double a){
+        this.Rcmax=a;
+    }
+    
 }
