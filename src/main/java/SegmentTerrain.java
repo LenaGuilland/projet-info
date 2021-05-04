@@ -13,95 +13,95 @@ public class SegmentTerrain {
     private int i;
     private Point depart;
     private Point arrivee;
-    private int [] info; //tableau contenant les identificateurs des 2 points
     
     //variable servant à numéroter les SegmentTerrain
     private static int numero=0;
     
+    //tableau contenant tous les segments créés
+    private static SegmentTerrain [] ListeSegment = new SegmentTerrain [255];
+    //tableau contenant les 2 points associés aux segments créés
+    private static Point [][] ListePoint = new Point [2][255];
+    
     //constructeur
     public SegmentTerrain(){
         this.i = numero;
-        numero++;
         this.depart= new Point(0,0);
         this.arrivee= new Point(0,0);
-        this.info = new int[2];
+        ListeSegment[numero] = this;
+        ListePoint [0][numero] = this.depart;
+        ListePoint [1][numero] = this.arrivee;
+        numero++;
     }
+    
+    public SegmentTerrain(Point A, Point B){
+        this.i = numero;
+        this.depart= new Point(A.getAbs(),A.getOrd());
+        this.arrivee= new Point(B.getAbs(),B.getOrd());
+        ListeSegment[numero] = this;
+        ListePoint [0][numero] = this.depart;
+        ListePoint [1][numero] = this.arrivee;
+        numero++;
+    }
+    
     
     //constuction d'un segment de 2 points
     public void Segment(Point A, Point B){
         //on fixe le point de départ
         depart.setAbs(A.getAbs());
         depart.setOrd(A.getOrd());
-        //on note son identificateur
-        this.info[0]= A.getIdent();
+        depart.setIdent(A.getIdent());
+        //on actualise le point de départ
+        ListePoint [0][this.i] = this.depart;
         
         //on fixe le point d'arrivée
         arrivee.setAbs(B.getAbs());
         arrivee.setOrd(B.getOrd());
-        //on note son identificateur
-        this.info[1]= B.getIdent();
+        arrivee.setIdent(B.getIdent());
+        //on actualise le point d'arrivée
+        ListePoint [1][this.i] = this.arrivee;
+        
+        //on actualise le segment
+        ListeSegment[this.i] = this;
     }
+    
+    
+    //méthodes get/set
+    public Point getDepart() {
+        return depart;
+    }
+    
+    public Point getArrivee() {
+        return arrivee;
+    }
+    
+    public int getIdent(){
+        return this.i;
+    }
+    
+    public void setIdent(int i){
+        this.i=i;
+    }
+    
     
     //affichage
     public String toString(){
-        String res ="ST"+i+" = [ "+this.info[0]+" ; "+this.info[1]+" ]";
+        String res ="ST"+i+" = [ "+ListePoint[0][this.i]+" ; "+ListePoint[1][this.i]+" ]";
         return res;
     }
     
-    
-    
-    
-    //Calcul du sinus de l'angle entre 2 segments
-    public static double Sinus(SegmentTerrain S1, SegmentTerrain S2){
-        double sin;
-        //formule de calcul du sinus de l'angle entre les 2 segments
-        sin =( (S1.arrivee.getAbs()-S1.depart.getAbs())*(S2.arrivee.getOrd()-S2.depart.getOrd()) - (S1.arrivee.getOrd()-S1.depart.getOrd())*(S2.arrivee.getAbs()-S2.depart.getAbs()) ) / ( S1.depart.distance(S1.arrivee)*S2.depart.distance(S2.arrivee) );
-        return sin;
+    //tester classe SegmentTerrain
+    public static void main(String[] args){
+        Point A = new Point(0,0);
+        Point B = new Point(1,0);
+        Point C = new Point(0,9);
+        System.out.println(A);
+        System.out.println(B);
+        System.out.println(C);
+        SegmentTerrain S1 = new SegmentTerrain();
+        S1.Segment(A,B);
+        System.out.println(S1);
+        System.out.println(C);
     }
-    
-    //renvoit TRUE lorsque le point est sur le segment
-    public static boolean Colineaire(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        S2.Segment(S1.arrivee,C);
-        
-        //colinéaire lorsque sinus a une valeur proche de 0
-        if( (Sinus(S1,S2)<0.1) && (Sinus(S1,S2)>-0.1) ){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    //renvoit TRUE lorsque le point forme un angle positif avec le segment
-    public static boolean Positif(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        S2.Segment(S1.arrivee,C);
-        
-        //positif si le sinus est positif
-        if( (Sinus(S1,S2)>=0)){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    //renvoit TRUE lorsque le point forme un angle négatif avec le segment
-    public static boolean Negatif(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        S2.Segment(S1.arrivee,C);
-        
-        //négatif si le sinus est négatif
-        if( (Sinus(S1,S2)<=0)){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    
     
     
 }

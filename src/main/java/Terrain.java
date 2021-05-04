@@ -32,9 +32,4 @@ public class Terrain {
         return res;
     }
     
-    //main
-    public static void main(String arg[]){
-        Terrain T = new Terrain(10,20,30,40);
-        System.out.println(T);
-    }
 }

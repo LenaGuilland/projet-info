@@ -17,12 +17,24 @@ public class Point {
     //variable servant à numéroter les points
     private static int numero=0;
     
+    //tableau contenant tous les points créés
+    private static Point [] Liste = new Point [255];
+    
     //constructeur
+    public Point(){
+        this.i = numero;
+        this.abs=0;
+        this.ord=0;
+        Liste[numero] = this;
+        numero++;
+    }
+    
     public Point(double abs, double ord){
         this.i = numero;
-        numero++;
         this.abs=abs;
         this.ord=ord;
+        Liste[numero] = this;
+        numero++;
     }
     
     //getter, setter
@@ -46,6 +58,10 @@ public class Point {
         return this.i;
     }
     
+    public void setIdent(int i){
+        this.i=i;
+    }
+    
     //affichage
     public String toString(){
         String res ="Point "+i+" : ("+abs+";"+ord+")";
@@ -58,6 +74,25 @@ public class Point {
         //double dord;
         //return Math.sqrt()
         return Math.sqrt((B.abs-this.abs)*(B.abs-this.abs)+(B.ord-this.ord)*(B.ord-this.ord));
+    }
+    
+    //Tester classe Point
+    public static void main(String[] args){
+        Point A = new Point(1,2);
+        Point B = new Point(2,3);
+        Point C = new Point(1,1);
+        System.out.println(A.getIdent());
+        System.out.println(B.getIdent());
+        System.out.println(C.getIdent());
+        System.out.println(A);
+        System.out.println(B);
+        System.out.println(C);
+        
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(Liste[0]);
+        System.out.println(Liste[1]);
+        System.out.println(Liste[2]);
     }
     
 }
