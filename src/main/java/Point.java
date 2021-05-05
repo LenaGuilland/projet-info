@@ -17,10 +17,11 @@ public class Point {
     //variable servant à numéroter les points
     private static int numero=0;
     
-    //tableau contenant tous les points créés
+    //tableau contenant tous les Points créés
     private static Point [] Liste = new Point [255];
     
     //constructeur
+    //crée un Point nul
     public Point(){
         this.i = numero;
         this.abs=0;
@@ -29,6 +30,7 @@ public class Point {
         numero++;
     }
     
+    //crée un Point à partir de 2 coordonnées
     public Point(double abs, double ord){
         this.i = numero;
         this.abs=abs;
@@ -37,30 +39,27 @@ public class Point {
         numero++;
     }
     
-    //getter, setter
+    
+    //méthodes get/set
     public double getAbs(){
         return this.abs;
     }
-    
     public double getOrd(){
         return this.ord;
     }
-
     public void setAbs(double abs){
         this.abs=abs;
-    }  
-    
+    }
     public void setOrd(double ord){
         this.ord=ord;
     }
-    
     public int getIdent(){
         return this.i;
     }
-    
     public void setIdent(int i){
         this.i=i;
     }
+    
     
     //affichage
     public String toString(){
@@ -68,7 +67,8 @@ public class Point {
         return res;
     }
     
-    //calcul de la distance entre  points
+    
+    //renvoie la distance entre 2 Points
     public double distance(Point B){
         //double dabs=this.abs;
         //double dord;
@@ -76,7 +76,7 @@ public class Point {
         return Math.sqrt((B.abs-this.abs)*(B.abs-this.abs)+(B.ord-this.ord)*(B.ord-this.ord));
     }
     
-    //Tester classe Point
+    //tester classe Point
     public static void main(String[] args){
         Point A = new Point(1,2);
         Point B = new Point(2,3);

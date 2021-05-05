@@ -23,13 +23,36 @@ public class Terrain {
         this.ymax = ymax;
     }
     
+    //méthodes get
+    public double getXMIN(){
+        return this.xmin;
+    }
+    
+    public double getXMAX(){
+        return this.xmax;
+    }
+    
+    public double getYMIN(){
+        return this.ymin;
+    }
+    
+    public double getYMAX(){
+        return this.ymax;
+    }
+    
+    
     //Affichage
     public String toString(){
         String res ="Info sur le Terrain :\n";
         res = res+"x compris entre "+xmin+" et "+xmax+"\n";
         res = res+"y compris entre "+ymin+" et "+ymax+"\n";
-        res = res+"Comprend les TriangleTerrain [A REMPLIR]";
         return res;
+    }
+    
+    //tester classe Terrain
+    public static void main(String arg[]){
+        Terrain T = new Terrain(10,20,30,40);
+        System.out.println(T);
     }
     
 }

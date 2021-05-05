@@ -32,13 +32,16 @@ public class TriangleTerrain {
     
     //tableau contenant tous les triangles créés
     private static TriangleTerrain [] ListeTriangle = new TriangleTerrain [255];
-    //tableau contenant les 3 points associés aux triangles créés
+    
+    //tableau contenant les 3 points associés à chaque TriangleTerrain créé
     private static Point [][] ListePoint = new Point [3][255];
-    //tableau contenant les 3 segments associés aux triangles créés
+    
+    //tableau contenant les 3 segments associés à chaque TriangleTerrain créé
     private static SegmentTerrain [][] ListeSegment = new SegmentTerrain [3][255];
     
     
-    //constructeur
+    //constructeurs
+    //crée un TriangleTerrain nul
     public TriangleTerrain(){
         this.i = numero;
         this.PTi1 = new Point(0,0);
@@ -57,15 +60,16 @@ public class TriangleTerrain {
         numero++;
     }
     
+    //crée un TriangleTerrain à partir de 3 Points
     public TriangleTerrain(Point PT1, Point PT2, Point PT3){
         this.i = numero;
-        //on crée et fixe le point A
+        //on fixe le point PTi1
         this.PTi1 = new Point(PT1.getAbs(),PT1.getOrd());
         ListePoint [0][numero] = this.PTi1;
-        //on crée et fixe le point B
+        //on fixe le point PTi2
         this.PTi2 = new Point(PT2.getAbs(),PT2.getOrd());
         ListePoint [1][numero] = this.PTi2;
-        //on crée et fixe le point C
+        //on fixe le point PTi3
         this.PTi3 = new Point(PT3.getAbs(),PT3.getOrd());
         ListePoint [2][numero] = this.PTi3;
         
@@ -77,38 +81,40 @@ public class TriangleTerrain {
         ListeSegment [1][numero] = this.STi2;
         ListeSegment [2][numero] = this.STi3;
         
-        //on actualise le TT
+        //on sauvegarde le TT
         ListeTriangle [numero] = this;
         
         numero++;
     }
+    
     
     //méthode get/set
     public int getIdent(){
         return this.i;
     }
     
-    //constuction d'un triplet de points
+    
+    //modifie un TriangleTerrain à partir de 3 Points
     public void Triplet(Point PT1, Point PT2, Point PT3){
-        //on fixe le point A
+        //on fixe le point PTi1
         this.PTi1.setAbs(PT1.getAbs());
         this.PTi1.setOrd(PT1.getOrd());
         this.PTi1.setIdent(PT1.getIdent());
         ListePoint [0][numero] = this.PTi1;
         
-        //on fixe le point B
+        //on fixe le point PTi2
         this.PTi2.setAbs(PT2.getAbs());
         this.PTi2.setOrd(PT2.getOrd());
         this.PTi2.setIdent(PT2.getIdent());
         ListePoint [1][numero] = this.PTi2;
         
-        //on fixe le point C
+        //on fixe le point PTi3
         this.PTi3.setAbs(PT3.getAbs());
         this.PTi3.setOrd(PT3.getOrd());
         this.PTi3.setIdent(PT3.getIdent());
         ListePoint [2][numero] = this.PTi3;
         
-        //on crée les 3 segments associés
+        //on crée et fixe les 3 segments associés
         this.STi1.Segment(PT1, PT2);
         this.STi2.Segment(PT2, PT3);
         this.STi3.Segment(PT3, PT1);
@@ -116,7 +122,7 @@ public class TriangleTerrain {
         ListeSegment [1][numero] = this.STi2;
         ListeSegment [2][numero] = this.STi3;
         
-        //on actualise le TT
+        //on sauvegarde le TT
         ListeTriangle [numero] = this;
     }
    
@@ -126,78 +132,12 @@ public class TriangleTerrain {
         res = res+"et les ST : "+this.STi1+" , "+this.STi2+" , "+this.STi3;
         return res;
     }
+
     
-    
-    //Calcul du sinus de l'angle entre 2 segments
-    public static double Sinus(SegmentTerrain S1, SegmentTerrain S2){
-        double sin;
-        //on copie temporairement les points de départ et d'arrivée des segments S1 et S2 pour pouvoir en récupérer les coordonnées
-        Point S1Depart = new Point();
-        S1Depart = S1.getDepart();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        Point S2Depart = new Point();
-        S2Depart = S2.getDepart();
-        Point S2Arrivee = new Point();
-        S2Arrivee = S2.getArrivee();
-        
-        //formule de calcul du sinus de l'angle entre les 2 segments
-        sin =( (S1Arrivee.getAbs()-S1Depart.getAbs())*(S2Arrivee.getOrd()-S2Depart.getOrd()) - (S1Arrivee.getOrd()-S1Depart.getOrd())*(S2Arrivee.getAbs()-S2Depart.getAbs()) ) / ( S1Depart.distance(S1Arrivee)*S2Depart.distance(S2Arrivee) );
-        return sin;
-    }
-    
-    //renvoie TRUE lorsque le point est sur le segment
-    public static boolean Colineaire(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
-        
-        //colinéaire lorsque sinus a une valeur proche de 0
-        if( (Sinus(S1,S2)<0.1) && (Sinus(S1,S2)>-0.1) ){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    //renvoie TRUE lorsque le point forme un angle positif avec le segment
-    public static boolean Positif(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
-        
-        //positif si le sinus est positif
-        if( (Sinus(S1,S2)>=0)){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    //renvoie TRUE lorsque le point forme un angle négatif avec le segment
-    public static boolean Negatif(SegmentTerrain S1, Point C){
-        //crée un segment S2=[B;C]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
-        
-        //négatif si le sinus est négatif
-        if( (Sinus(S1,S2)<=0)){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    //renvoie TRUE lorsque le point est dans le TT indiqué
+    //renvoie TRUE lorsque le Point P est compris dans le TriangleTerrain fourni
     public boolean Comprend(Point P){
-        //on considère le point comme étant dans le TT lorsque tous les angles formés avec les ST sont tous aigus ou tous optus (tous positifs ou tous négatifs)
-        if( ( (Positif(this.STi1,P)==true)&&(Positif(this.STi2,P)==true)&&(Positif(this.STi3,P)==true) ) || ( (Negatif(this.STi1,P)==true)&&(Negatif(this.STi2,P)==true)&&(Negatif(this.STi3,P)==true)) ){
+        //on considère le point comme étant dans le TT lorsque tous les angles formés avec les ST sont aigus ou optus (tous positifs ou tous négatifs)
+        if( ( (SegmentTerrain.Positif(this.STi1,P)==true)&&(SegmentTerrain.Positif(this.STi2,P)==true)&&(SegmentTerrain.Positif(this.STi3,P)==true) ) || ( (SegmentTerrain.Negatif(this.STi1,P)==true)&&(SegmentTerrain.Negatif(this.STi2,P)==true)&&(SegmentTerrain.Negatif(this.STi3,P)==true)) ){
             return true;
         } else {
             return false;
@@ -208,16 +148,10 @@ public class TriangleTerrain {
     
     //renvoie le TT associé à l'identificateur indiqué
     public static TriangleTerrain chercherTT(int ident){
-        TriangleTerrain TT = new TriangleTerrain();
-        for (int i =0; i<255; i++){
-            TT= ListeTriangle[i];
-            if (TT.getIdent()==ident){
-                return TT;
-            }
-        }
-        return null;
+        return ListeTriangle[ident];
     }
     
+    //renvoie le Point n°j du TriangleTerrain indiqué
     public static Point chercherPTdeTT(int j, TriangleTerrain TT){
         return ListePoint[j][TT.getIdent()];
     }
@@ -235,13 +169,13 @@ public class TriangleTerrain {
         S1.Segment(A,B);
         System.out.println(S1);
         System.out.println(C);
-        System.out.println("AB et BC sont colineaires : "+Colineaire(S1,C));
-        System.out.println("AB et BC forment un angle positif : "+Positif(S1,C));
-        System.out.println("AB et BC forment un angle negatif : "+Negatif(S1,C));
+        System.out.println("AB et BC sont colineaires : "+SegmentTerrain.Colineaire(S1,C));
+        System.out.println("AB et BC forment un angle positif : "+SegmentTerrain.Positif(S1,C));
+        System.out.println("AB et BC forment un angle negatif : "+SegmentTerrain.Negatif(S1,C));
         
         SegmentTerrain S2 = new SegmentTerrain();
         S2.Segment(B,C);
-        System.out.println("Sinus de l'angle entre S1 et S2 vaut : "+Sinus(S1,S2));
+        System.out.println("Sinus de l'angle entre S1 et S2 vaut : "+SegmentTerrain.Sinus(S1,S2));
         
         
         System.out.println(" ");
@@ -257,13 +191,13 @@ public class TriangleTerrain {
         System.out.println(TT);
         Point P = new Point (0.5,0.5);
         System.out.println(P);
-        System.out.println("DE et EP forment un angle positif : "+Positif(TT.STi1,P));
-        System.out.println("EF et FP forment un angle positif : "+Positif(TT.STi2,P));
-        System.out.println("FD et DP forment un angle positif : "+Positif(TT.STi3,P));
+        System.out.println("DE et EP forment un angle positif : "+SegmentTerrain.Positif(TT.STi1,P));
+        System.out.println("EF et FP forment un angle positif : "+SegmentTerrain.Positif(TT.STi2,P));
+        System.out.println("FD et DP forment un angle positif : "+SegmentTerrain.Positif(TT.STi3,P));
         System.out.println(" ");
-        System.out.println("DE et EP forment un angle negatif : "+Negatif(TT.STi1,P));
-        System.out.println("EF et FP forment un angle negatif : "+Negatif(TT.STi2,P));
-        System.out.println("FD et DP forment un angle negatif : "+Negatif(TT.STi3,P));
+        System.out.println("DE et EP forment un angle negatif : "+SegmentTerrain.Negatif(TT.STi1,P));
+        System.out.println("EF et FP forment un angle negatif : "+SegmentTerrain.Negatif(TT.STi2,P));
+        System.out.println("FD et DP forment un angle negatif : "+SegmentTerrain.Negatif(TT.STi3,P));
         System.out.println(" ");
         System.out.println("TriangleTerrain TT0 comprend P : "+TT.Comprend(P));
         

@@ -20,6 +20,7 @@ public class Noeud {
         numero++;
     }
     
+    //méthodes get/set
     public int getIdent(){
         return this.i;
     }
