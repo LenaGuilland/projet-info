@@ -23,11 +23,7 @@ public class Point {
     //constructeur
     //crée un Point nul
     public Point(){
-        this.i = numero;
-        this.abs=0;
-        this.ord=0;
-        Liste[numero] = this;
-        numero++;
+        this(0,0);
     }
     
     //crée un Point à partir de 2 coordonnées
@@ -37,6 +33,12 @@ public class Point {
         this.ord=ord;
         Liste[numero] = this;
         numero++;
+    }
+    
+    public Point(Point P){
+        this.i = P.getIdent();
+        this.abs=P.getAbs();
+        this.ord=P.getOrd();
     }
     
     

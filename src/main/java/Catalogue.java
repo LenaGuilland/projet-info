@@ -6,7 +6,7 @@
 
 /**
  *
- * @author liiina55
+ * @author Sofie
  */
 public class Catalogue {
     
@@ -19,36 +19,39 @@ public class Catalogue {
     }
         
     public TypeBarre barreAcier(){
-        acier.setCout(20);
-        acier.setLmax(10);
-        acier.setLmin(5);
-        acier.setRcmax(12);
-        acier.setRtmax(8);
+        acier = new TypeBarre(20.0,10.0,5.0,12.0,8.0);
         return acier;
     }
     
     public TypeBarre barreBois(){
-        bois.setCout(15);
-        bois.setLmax(9);
-        bois.setLmin(4);
-        bois.setRcmax(10);
-        bois.setRtmax(7);
+        bois = new TypeBarre(15,9,4,10,7);
         return bois;
     }
     
-    public String toString(TypeBarre b){
+    public String toString(String S){
         String res="";
-        if(b==barreBois()){
+        if(S=="bois"){
             res="cout : "+bois.getCout()+"€\n"+"longueur min : "+bois.getLmin()+"m\n"+"longueur max : "+bois.getLmax()+"m\n"+"résistance compression max : "+bois.getRcmax()+"\n"+"résistance tension max : "+bois.getRtmax();
         }
-        else if(b==barreAcier()){
+        else if(S=="acier"){
             res="cout : "+acier.getCout()+"€\n"+"longueur min : "+acier.getLmin()+"m\n"+"longueur max : "+acier.getLmax()+"m\n"+"résistance compression max : "+acier.getRcmax()+"\n"+"résistance tension max : "+acier.getRtmax();
         }
         return res;
     }
     
-    public static void main(String[] args){
-        TypeBarre b= new TypeBarre();
-        System.out.println(b.toString());
+    //méthodes get/set
+    public TypeBarre getAcier(){
+        return this.acier;
     }
+    public TypeBarre getBois(){
+        return this.bois;
+    }
+    
+    
+    public static void main(String[] args){
+        Catalogue CATA = new Catalogue();
+        String S = "bois";
+        System.out.println(CATA.toString(S));
+    }
+    
 }

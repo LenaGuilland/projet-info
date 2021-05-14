@@ -41,18 +41,18 @@ public class TriangleTerrain {
     
     
     //constructeurs
-    //crée un TriangleTerrain nul
-    public TriangleTerrain(){
+    //crée un TriangleTerrain à partir de 3 Points et de 3 SegmentTerrains
+    public TriangleTerrain(Point PT1, Point PT2, Point PT3, SegmentTerrain ST1, SegmentTerrain ST2, SegmentTerrain ST3){
         this.i = numero;
-        this.PTi1 = new Point(0,0);
-        this.PTi2 = new Point(0,0);
-        this.PTi3 = new Point(0,0);
+        this.PTi1 = PT1;
+        this.PTi2 = PT2;
+        this.PTi3 = PT3;
         ListePoint [0][numero] = this.PTi1;
         ListePoint [1][numero] = this.PTi2;
         ListePoint [2][numero] = this.PTi3;
-        this.STi1 = new SegmentTerrain();
-        this.STi2 = new SegmentTerrain();
-        this.STi3 = new SegmentTerrain();
+        this.STi1 = ST1;
+        this.STi2 = ST2;
+        this.STi3 = ST3;
         ListeSegment [0][numero] = this.STi1;
         ListeSegment [1][numero] = this.STi2;
         ListeSegment [2][numero] = this.STi3;
@@ -60,32 +60,17 @@ public class TriangleTerrain {
         numero++;
     }
     
+    //crée un TriangleTerrain nul
+    public TriangleTerrain(){
+        this(new Point(0,0),new Point(0,0),new Point(0,0));
+    }
+    
     //crée un TriangleTerrain à partir de 3 Points
     public TriangleTerrain(Point PT1, Point PT2, Point PT3){
-        this.i = numero;
-        //on fixe le point PTi1
-        this.PTi1 = new Point(PT1.getAbs(),PT1.getOrd());
-        ListePoint [0][numero] = this.PTi1;
-        //on fixe le point PTi2
-        this.PTi2 = new Point(PT2.getAbs(),PT2.getOrd());
-        ListePoint [1][numero] = this.PTi2;
-        //on fixe le point PTi3
-        this.PTi3 = new Point(PT3.getAbs(),PT3.getOrd());
-        ListePoint [2][numero] = this.PTi3;
-        
-        //on crée et fixe les 3 segments associés
-        this.STi1 = new SegmentTerrain(PT1, PT2);
-        this.STi2 = new SegmentTerrain(PT2, PT3);
-        this.STi3 = new SegmentTerrain(PT3, PT1);
-        ListeSegment [0][numero] = this.STi1;
-        ListeSegment [1][numero] = this.STi2;
-        ListeSegment [2][numero] = this.STi3;
-        
-        //on sauvegarde le TT
-        ListeTriangle [numero] = this;
-        
-        numero++;
+        //crée les 3 ST correspondant aux Points fournis
+        this(PT1, PT2, PT3, new SegmentTerrain(PT1, PT2), new SegmentTerrain(PT2, PT3), new SegmentTerrain(PT3, PT1));
     }
+    
     
     
     //méthode get/set
@@ -154,6 +139,11 @@ public class TriangleTerrain {
     //renvoie le Point n°j du TriangleTerrain indiqué
     public static Point chercherPTdeTT(int j, TriangleTerrain TT){
         return ListePoint[j][TT.getIdent()];
+    }
+    
+    //renvoie la dimension du tableau
+    public static int TailleListeTriangleTerrain(){
+        return ListeTriangle.length;
     }
     
     

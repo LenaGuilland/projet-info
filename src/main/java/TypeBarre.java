@@ -6,7 +6,7 @@
 
 /**
  *
- * @author liiina55
+ * @author Sofie
  */
 public class TypeBarre {
     
@@ -16,14 +16,15 @@ public class TypeBarre {
     private double Rtmax;
     private double Rcmax;
     private static int ident;
-    private TypeBarre barreBois;
-    private TypeBarre barreAcier;
     
-    public TypeBarre(){
+    public TypeBarre(double cout, double Lmax, double Lmin,double Rtmax,double Rcmax){
         this.ident=ident;
         ident++;
-        this.barreBois = new TypeBarre();
-        this.barreAcier = new TypeBarre();
+        this.cout = cout;
+        this.Lmax = Lmax;
+        this.Lmin = Lmin;
+        this.Rtmax = Rtmax;
+        this.Rcmax = Rcmax;
     }
     
     /*public static void barreAcier(){
@@ -70,5 +71,12 @@ public class TypeBarre {
     public void setRcmax(double a){
         this.Rcmax=a;
     }
+    
+    public String toString(){
+        String res="Type"+this.ident;
+        return res;
+    }
+    
+    
     
 }

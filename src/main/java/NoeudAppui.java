@@ -18,16 +18,9 @@ public class NoeudAppui extends Noeud {
     
     
     //constructeur
-    //crée un NoeudAppui nul associé à une TriangleTerrain nul
-    public NoeudAppui(){
-        this.TTi= new TriangleTerrain();
-        this.j= 0;
-        this.α= 0;
-    }
-    
-    //crée un NoeudAppui et son TriangleTerrain associé
-    public NoeudAppui(Point PT1, Point PT2, Point PT3, int j, double α){
-        this.TTi= new TriangleTerrain(PT1,PT2,PT3);
+    //crée un NoeudAppui dont on connait tous les paramètres
+    public NoeudAppui (TriangleTerrain TT, int j, double α){
+        this.TTi = TT;
         //j ne peut avoir comme valeur que 0, 1 et 2
         //i doit être compris au sens large entre 0 et 1
         if((j<0)||(j>=3)){
@@ -38,8 +31,19 @@ public class NoeudAppui extends Noeud {
            this.j= j;
            this.α= α; 
         }
-        
     }
+    
+    //crée un NoeudAppui et son TriangleTerrain associé
+    public NoeudAppui(Point PT1, Point PT2, Point PT3, int j, double α){
+        this(new TriangleTerrain(PT1,PT2,PT3), j, α);
+    }
+    
+    //crée un NoeudAppui nul associé à une TriangleTerrain nul
+    public NoeudAppui(){
+        this(new TriangleTerrain(),0,0);
+    }
+    
+    
     
     
     //renvoie le numéro du point suivant sur le segment
@@ -49,26 +53,20 @@ public class NoeudAppui extends Noeud {
     
     //renvoie l'abscisse de l'appui
     public double absAppui(){
-        Point PTij = new Point();
-        Point PTik = new Point();
-        
         //récupère le point de départ du segment
-        PTij = TriangleTerrain.chercherPTdeTT(this.j, this.TTi);
+        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(this.j, this.TTi));
         //récupère le point d'arrivée du segment
-        PTik = TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi);
+        Point PTik = new Point(TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi));
         
         return this.α*PTij.getAbs()+(1-this.α)*PTik.getAbs();
     }
     
     //renvoie l'ordonnée de l'appui
     public double ordAppui(){
-        Point PTij = new Point();
-        Point PTik = new Point();
-        
         //récupère le point de départ du segment
-        PTij = TriangleTerrain.chercherPTdeTT(this.j, this.TTi);
+        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(this.j, this.TTi));
         //récupère le point d'arrivée du segment
-        PTik = TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi);
+        Point PTik = new Point(TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi));
         
         return this.α*PTij.getOrd()+(1-this.α)*PTik.getOrd();
     }

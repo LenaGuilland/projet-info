@@ -26,21 +26,15 @@ public class SegmentTerrain {
     //constructeur
     //crée un SegmentTerrain nul
     public SegmentTerrain(){
-        this.i = numero;
-        this.depart= new Point(0,0);
-        this.arrivee= new Point(0,0);
-        ListeSegment[numero] = this;
-        ListePoint [0][numero] = this.depart;
-        ListePoint [1][numero] = this.arrivee;
-        numero++;
+        this(new Point(0,0),new Point(0,0));
     }
     
     //crée un SegmentTerrain à partir de 2 Points
     public SegmentTerrain(Point A, Point B){
         this.i = numero;
         //on fixe les deux Points
-        this.depart= new Point(A.getAbs(),A.getOrd());
-        this.arrivee= new Point(B.getAbs(),B.getOrd());
+        this.depart= A;
+        this.arrivee= B;
         //on sauvegarde les Points et le SegmentTerrain créés
         ListePoint [0][numero] = this.depart;
         ListePoint [1][numero] = this.arrivee;
@@ -89,14 +83,11 @@ public class SegmentTerrain {
     public static double Sinus(SegmentTerrain S1, SegmentTerrain S2){
         double sin;
         //on copie temporairement les points de départ et d'arrivée des segments S1 et S2 pour pouvoir en récupérer les coordonnées
-        Point S1Depart = new Point();
-        S1Depart = S1.getDepart();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        Point S2Depart = new Point();
-        S2Depart = S2.getDepart();
-        Point S2Arrivee = new Point();
-        S2Arrivee = S2.getArrivee();
+        Point S1Depart = new Point(S1.getDepart());
+        Point S1Arrivee = new Point(S1.getArrivee());
+        
+        Point S2Depart = new Point(S2.getDepart());
+        Point S2Arrivee = new Point(S2.getArrivee());
         
         //calcul du sinus de l'angle entre les 2 segments
         sin =( (S1Arrivee.getAbs()-S1Depart.getAbs())*(S2Arrivee.getOrd()-S2Depart.getOrd()) - (S1Arrivee.getOrd()-S1Depart.getOrd())*(S2Arrivee.getAbs()-S2Depart.getAbs()) ) / ( S1Depart.distance(S1Arrivee)*S2Depart.distance(S2Arrivee) );
@@ -107,10 +98,7 @@ public class SegmentTerrain {
     public static boolean Colineaire(SegmentTerrain S1, Point C){
         //S1 correspond à un segment [AB]
         //on crée le segment S2=[BC]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
+        SegmentTerrain S2 = new SegmentTerrain(S1.getArrivee(),C);
         
         //colinéaire lorsque sinus a une valeur proche de 0
         if( (Sinus(S1,S2)<0.1) && (Sinus(S1,S2)>-0.1) ){
@@ -123,10 +111,7 @@ public class SegmentTerrain {
     //renvoie TRUE lorsque le point C forme un angle positif avec le segment [AB]
     public static boolean Positif(SegmentTerrain S1, Point C){
         //crée un segment S2=[BC]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
+        SegmentTerrain S2 = new SegmentTerrain(S1.getArrivee(),C);
         
         //angle est positif si le sinus est positif
         if( (Sinus(S1,S2)>=0)){
@@ -139,10 +124,7 @@ public class SegmentTerrain {
     //renvoie TRUE lorsque le point C forme un angle négatif avec le segment [AB]
     public static boolean Negatif(SegmentTerrain S1, Point C){
         //crée un segment S2=[BC]
-        SegmentTerrain S2 = new SegmentTerrain();
-        Point S1Arrivee = new Point();
-        S1Arrivee = S1.getArrivee();
-        S2.Segment(S1Arrivee,C);
+        SegmentTerrain S2 = new SegmentTerrain(S1.getArrivee(),C);
         
         //angle est négatif si le sinus est négatif
         if( (Sinus(S1,S2)<=0)){
@@ -171,6 +153,13 @@ public class SegmentTerrain {
         S1.Segment(A,B);
         System.out.println(S1);
         System.out.println(C);
+        System.out.println("AB et BC sont colineaires : "+Colineaire(S1,C));
+        System.out.println("AB et BC forment un angle positif : "+Positif(S1,C));
+        System.out.println("AB et BC forment un angle negatif : "+Negatif(S1,C));
+        
+        SegmentTerrain S2 = new SegmentTerrain();
+        S2.Segment(B,C);
+        System.out.println("Sinus de l'angle entre S1 et S2 vaut : "+Sinus(S1,S2));
     }
     
     

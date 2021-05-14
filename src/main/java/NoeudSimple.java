@@ -14,21 +14,16 @@ public class NoeudSimple extends Noeud {
     
     
     //constructeur
-    //crée un Noeud nul
-    public NoeudSimple(){
-        this.abs=0;
-        this.ord=0;
-    }
-    
     //crée un Noeud à partir de 2 coordonnées et d'un Terrain
     public NoeudSimple(Terrain T, double abs, double ord){
         boolean DansUnTT = false;
         Point P = new Point(abs, ord);
         TriangleTerrain TTi = new TriangleTerrain();
         
-        //la variable DansUnTT devient true lorsque P est compris dans un des TriangleTerrain créés
+        //la variable DansUnTT devient TRUE lorsque P est compris dans un des TriangleTerrain créés
         int i =0;
-        while(i<256){
+        //on parcourt toutes les cases du tableau et on cherche si le point est compris dans au moins un des TriangleTerrain
+        while(i<TriangleTerrain.TailleListeTriangleTerrain()){
             TTi = TriangleTerrain.chercherTT(i);
             if(TTi.Comprend(P)==true){
                 DansUnTT = true;
@@ -42,7 +37,7 @@ public class NoeudSimple extends Noeud {
             throw new Error("Le noeud n'est pas compris dans le Terrain");
         } else if ((ord<T.getYMIN())||(ord>T.getYMAX())){
             throw new Error("Le noeud n'est pas compris dans le Terrain");
-        } else if (DansUnTT==true){
+        } else if (DansUnTT==false){
            throw new Error("Le noeud n'est pas compris dans un TriangleTerrain");
         } else {
           this.abs=abs;
@@ -60,17 +55,21 @@ public class NoeudSimple extends Noeud {
     
     //tester classe NoeudSimple
     public static void main (String[] args){
-        NoeudSimple NS = new NoeudSimple();
+        Terrain T = new Terrain(-1,1,-1,1);
+        TriangleTerrain TT1 = new TriangleTerrain(new Point(-1,-1), new Point(1,-1), new Point(-1,1));
+        TriangleTerrain TT2 = new TriangleTerrain(new Point(-1,1), new Point(1,-1), new Point(1,1));
+        System.out.println(TT1);
+        System.out.println(TT2);
+        NoeudSimple NS3 = new NoeudSimple(T,0.5,0.5);
+        System.out.println(NS3);
+        
+
+        NoeudSimple NS = new NoeudSimple(T,0,0);
         System.out.println(NS);
-        NoeudSimple NS1 = new NoeudSimple();
+        NoeudSimple NS1 = new NoeudSimple(T,1,0);
         System.out.println(NS1);
-        NoeudSimple NS2 = new NoeudSimple();
+        NoeudSimple NS2 = new NoeudSimple(T,0,1);
         System.out.println(NS2);
         
-        System.out.println(" ");
-        System.out.println(" ");
-        Terrain T = new Terrain(-100,100,-100,100);
-        NoeudSimple NS3 = new NoeudSimple(T,-18,42);
-        System.out.println(NS3);
     }
 }

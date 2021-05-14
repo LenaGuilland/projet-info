@@ -6,13 +6,16 @@
 
 /**
  *
- * @author liiina55
+ * @author Sofie
  */
 public class Treillis {
-    private Terrain terrain;
-    private double[][] ensNeouds;
-    private double[][] ensBarres;
-    //private cataligue de barres
+    //attributs
+    private Terrain T;
+    private NoeudSimple[] ListeNoeudSimple = new NoeudSimple[255];
+    private NoeudAppui[] ListeNoeudAppui = new NoeudAppui[255];
+    private Barre[] ListeBarre = new Barre[255];
+    private Catalogue CATA;
     
+    //constructeurs
     
 }
