@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage fenetre) {
-        Scene sc = new Scene(new panneauDessin() );
+        Scene sc = new Scene(new MainPane(), 800, 600);
         fenetre.setScene(sc);
           fenetre.show();
     }
