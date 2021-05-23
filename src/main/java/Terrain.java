@@ -43,7 +43,7 @@ public class Terrain {
     
     //Affichage
     public String toString(){
-        String res ="Info sur le Terrain :\n";
+        String res ="de coordonnées :\n";
         res = res+"x compris entre "+xmin+" et "+xmax+"\n";
         res = res+"y compris entre "+ymin+" et "+ymax+"\n";
         return res;

@@ -12,6 +12,8 @@ public class NoeudSimple extends Noeud {
     private double abs;
     private double ord;
     
+    //tableau contenant tous les NoeudSimples créés
+    private static NoeudSimple [] ListeNoeudSimple = new NoeudSimple [255];
     
     //constructeur
     //crée un Noeud à partir de 2 coordonnées et d'un Terrain
@@ -25,9 +27,11 @@ public class NoeudSimple extends Noeud {
         //on parcourt toutes les cases du tableau et on cherche si le point est compris dans au moins un des TriangleTerrain
         while(i<TriangleTerrain.TailleListeTriangleTerrain()){
             TTi = TriangleTerrain.chercherTT(i);
-            if(TTi.Comprend(P)==true){
+            if(TTi==null){
+                i=TriangleTerrain.TailleListeTriangleTerrain();
+            } else if(TTi.Comprend(P)==true){
                 DansUnTT = true;
-                i=256;
+                i=TriangleTerrain.TailleListeTriangleTerrain();
             }
             i++;
         }
@@ -37,11 +41,12 @@ public class NoeudSimple extends Noeud {
             throw new Error("Le noeud n'est pas compris dans le Terrain");
         } else if ((ord<T.getYMIN())||(ord>T.getYMAX())){
             throw new Error("Le noeud n'est pas compris dans le Terrain");
-        } else if (DansUnTT==false){
-           throw new Error("Le noeud n'est pas compris dans un TriangleTerrain");
+        } else if (DansUnTT==true){
+           throw new Error("Le noeud est compris dans un TriangleTerrain");
         } else {
           this.abs=abs;
-          this.ord=ord; 
+          this.ord=ord;
+          ListeNoeudSimple [this.getIdent()] = this;
         }
         
     }
@@ -49,12 +54,19 @@ public class NoeudSimple extends Noeud {
     
     //affichage
     public String toString(){
-        String res = "Point "+this.getIdent()+" : ("+abs+";"+ord+")";
+        String res = "Noeud "+this.getIdent()+" : ("+abs+";"+ord+")";
         return res;
     }
     
+    //renvoie l'Appui associé à l'identificateur indiqué
+    public static NoeudSimple donneNoeudSimple(int ident){
+        return ListeNoeudSimple[ident];
+    }
+    
+    
     //tester classe NoeudSimple
     public static void main (String[] args){
+        /*
         Terrain T = new Terrain(-1,1,-1,1);
         TriangleTerrain TT1 = new TriangleTerrain(new Point(-1,-1), new Point(1,-1), new Point(-1,1));
         TriangleTerrain TT2 = new TriangleTerrain(new Point(-1,1), new Point(1,-1), new Point(1,1));
@@ -70,6 +82,6 @@ public class NoeudSimple extends Noeud {
         System.out.println(NS1);
         NoeudSimple NS2 = new NoeudSimple(T,0,1);
         System.out.println(NS2);
-        
+        */
     }
 }

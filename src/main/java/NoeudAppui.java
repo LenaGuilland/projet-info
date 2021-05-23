@@ -16,10 +16,15 @@ public class NoeudAppui extends Noeud {
     private int j; //numéro du premier point du segment de terrain sur lequel se trouve le noeud appui
     private double α; //position de l'appui sur le segment de terrain
     
+    //tableau contenant tous les NoeudAppuis créés
+    private static NoeudAppui [] ListeNoeudAppui = new NoeudAppui [255];
+    
+    //tableau contenant tous les NoeudSimples associés aux NoeudAppuis créés
+    private static NoeudSimple [] ListeNoeudSimple = new NoeudSimple [255];
     
     //constructeur
     //crée un NoeudAppui dont on connait tous les paramètres
-    public NoeudAppui (TriangleTerrain TT, int j, double α){
+    public NoeudAppui (Terrain T, TriangleTerrain TT, int j, double α){
         this.TTi = TT;
         //j ne peut avoir comme valeur que 0, 1 et 2
         //i doit être compris au sens large entre 0 et 1
@@ -30,17 +35,14 @@ public class NoeudAppui extends Noeud {
         } else {
            this.j= j;
            this.α= α; 
+           ListeNoeudAppui [this.getIdent()] = this;
+           ListeNoeudSimple [this.getIdent()] = new NoeudSimple(T,this.absAppui(),this.ordAppui());
         }
     }
     
     //crée un NoeudAppui et son TriangleTerrain associé
-    public NoeudAppui(Point PT1, Point PT2, Point PT3, int j, double α){
-        this(new TriangleTerrain(PT1,PT2,PT3), j, α);
-    }
-    
-    //crée un NoeudAppui nul associé à une TriangleTerrain nul
-    public NoeudAppui(){
-        this(new TriangleTerrain(),0,0);
+    public NoeudAppui(Terrain T, Point PT1, Point PT2, Point PT3, int j, double α){
+        this(T, new TriangleTerrain(PT1,PT2,PT3), j, α);
     }
     
     
@@ -71,6 +73,15 @@ public class NoeudAppui extends Noeud {
         return this.α*PTij.getOrd()+(1-this.α)*PTik.getOrd();
     }
     
+    //renvoie l'Appui associé à l'identificateur indiqué
+    public static NoeudAppui donneAppui(int ident){
+        return ListeNoeudAppui[ident];
+    }
+    
+    //renvoie le NoeudSimple associé au NoeudAppui
+    public static NoeudSimple donneNoeudSimpleAssocie(NoeudAppui NA){
+        return ListeNoeudSimple[NA.getIdent()];
+    }
     
     //affichage
     public String toString(){
@@ -89,7 +100,8 @@ public class NoeudAppui extends Noeud {
         System.out.println(D);
         System.out.println(E);
         System.out.println(F);
-        NoeudAppui NA1 = new NoeudAppui(D,E,F,E.getIdent(),0.5);
+        Terrain Terrain = new Terrain(0,10,0,10);
+        NoeudAppui NA1 = new NoeudAppui(Terrain, D,E,F,E.getIdent(),0.5);
         System.out.println(NA1);
         
         

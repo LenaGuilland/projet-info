@@ -121,14 +121,13 @@ public class TriangleTerrain {
     
     //renvoie TRUE lorsque le Point P est compris dans le TriangleTerrain fourni
     public boolean Comprend(Point P){
-        //on considère le point comme étant dans le TT lorsque tous les angles formés avec les ST sont aigus ou optus (tous positifs ou tous négatifs)
-        if( ( (SegmentTerrain.Positif(this.STi1,P)==true)&&(SegmentTerrain.Positif(this.STi2,P)==true)&&(SegmentTerrain.Positif(this.STi3,P)==true) ) || ( (SegmentTerrain.Negatif(this.STi1,P)==true)&&(SegmentTerrain.Negatif(this.STi2,P)==true)&&(SegmentTerrain.Negatif(this.STi3,P)==true)) ){
+        //on considère le point comme étant dans le TT lorsque tous les angles formés avec les ST sont aigus ou optus (tous positifs ou tous négatifs) ET qu'il n'est pas colinéaire à l'un des ST
+        if( ( ( (SegmentTerrain.Positif(this.STi1,P)==true)&&(SegmentTerrain.Positif(this.STi2,P)==true)&&(SegmentTerrain.Positif(this.STi3,P)==true) ) || ( (SegmentTerrain.Negatif(this.STi1,P)==true)&&(SegmentTerrain.Negatif(this.STi2,P)==true)&&(SegmentTerrain.Negatif(this.STi3,P)==true)) ) && (SegmentTerrain.Colineaire(STi1, P)==false) && (SegmentTerrain.Colineaire(STi2, P)==false) && (SegmentTerrain.Colineaire(STi3, P)==false) ){
             return true;
         } else {
             return false;
         }
-        //la méthode renvoie FALSE lorsque P a les même coordonnées qu'un des 3 points de TTS
-        //elle renvoie cependant TRUE si le point est colinéaire à un des 3 ST
+        //la méthode renvoie également FALSE lorsque P a les même coordonnées qu'un des 3 points de TTS
     }
     
     //renvoie le TT associé à l'identificateur indiqué
