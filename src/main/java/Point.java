@@ -18,7 +18,7 @@ public class Point {
     private static int numero=0;
     
     //tableau contenant tous les Points créés
-    private static Point [] Liste = new Point [255];
+    private static Point [] ListePoint = new Point [255];
     
     //constructeur
     //crée un Point nul
@@ -28,26 +28,26 @@ public class Point {
     
     //crée un Point à partir de 2 coordonnées
     public Point(double abs, double ord){
-        this.i = numero;
+        i = numero;
         this.abs=abs;
         this.ord=ord;
-        Liste[numero] = this;
+        ListePoint[numero] = this;
         numero++;
     }
     
     public Point(Point P){
-        this.i = P.getIdent();
-        this.abs=P.getAbs();
-        this.ord=P.getOrd();
+        i = P.getIdent();
+        abs=P.getAbs();
+        ord=P.getOrd();
     }
     
     
     //méthodes get/set
     public double getAbs(){
-        return this.abs;
+        return abs;
     }
     public double getOrd(){
-        return this.ord;
+        return ord;
     }
     public void setAbs(double abs){
         this.abs=abs;
@@ -56,10 +56,10 @@ public class Point {
         this.ord=ord;
     }
     public int getIdent(){
-        return this.i;
+        return i;
     }
-    public void setIdent(int i){
-        this.i=i;
+    public void setIdent(int ident){
+        i=ident;
     }
     
     
@@ -75,7 +75,7 @@ public class Point {
         //double dabs=this.abs;
         //double dord;
         //return Math.sqrt()
-        return Math.sqrt((B.abs-this.abs)*(B.abs-this.abs)+(B.ord-this.ord)*(B.ord-this.ord));
+        return Math.sqrt((B.abs-abs)*(B.abs-abs)+(B.ord-ord)*(B.ord-ord));
     }
     
     //tester classe Point
@@ -92,9 +92,9 @@ public class Point {
         
         System.out.println(" ");
         System.out.println(" ");
-        System.out.println(Liste[0]);
-        System.out.println(Liste[1]);
-        System.out.println(Liste[2]);
+        System.out.println(ListePoint[0]);
+        System.out.println(ListePoint[1]);
+        System.out.println(ListePoint[2]);
     }
     
 }

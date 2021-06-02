@@ -14,6 +14,8 @@ public class Terrain {
     private double xmax;
     private double ymin;
     private double ymax;
+    //tableau contenant tous les TriangleTerrain appartenant au terrain
+    private TriangleTerrain [] ListeTriangle = new TriangleTerrain [255];
     
     //Constructeur
     public Terrain(double xmin, double xmax, double ymin, double ymax){
@@ -25,19 +27,41 @@ public class Terrain {
     
     //méthodes get
     public double getXMIN(){
-        return this.xmin;
+        return xmin;
     }
     
     public double getXMAX(){
-        return this.xmax;
+        return xmax;
     }
     
     public double getYMIN(){
-        return this.ymin;
+        return ymin;
     }
     
     public double getYMAX(){
-        return this.ymax;
+        return ymax;
+    }
+    
+    //crée un TT et l'ajoute dans une case vide du tableau du Terrain
+    public void ajoutTT(Point A, Point B, Point C) {
+        int i=0;
+        while (i< ListeTriangle.length){
+            if(ListeTriangle[i]==null){
+                ListeTriangle[i] = new TriangleTerrain(A,B,C);
+                i=ListeTriangle.length;
+            }
+            i++;
+        }
+    }
+    
+    //renvoie la dimension du tableau
+    public int TailleListeTriangle(){
+        return ListeTriangle.length;
+    }
+    
+    //renvoie le TT associé à l'identificateur indiqué
+    public TriangleTerrain chercherTT(int i){
+        return ListeTriangle[i];
     }
     
     
@@ -53,6 +77,14 @@ public class Terrain {
     public static void main(String arg[]){
         Terrain T = new Terrain(10,20,30,40);
         System.out.println(T);
+        
+        Point A = new Point(0,0);
+        Point B = new Point(1,0);
+        Point C = new Point(0,9);
+        T.ajoutTT(A,B,C);
+        System.out.println(T.ListeTriangle[0]);
     }
+
+    
     
 }

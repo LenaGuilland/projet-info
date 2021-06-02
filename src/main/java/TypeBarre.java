@@ -9,7 +9,7 @@
  * @author Sofie
  */
 public class TypeBarre {
-    
+    private int i;
     private double cout;
     private double Lmax;
     private double Lmin;
@@ -18,7 +18,7 @@ public class TypeBarre {
     private static int ident;
     
     public TypeBarre(double cout, double Lmax, double Lmin,double Rtmax,double Rcmax){
-        this.ident=ident;
+        i=ident;
         ident++;
         this.cout = cout;
         this.Lmax = Lmax;
@@ -33,47 +33,42 @@ public class TypeBarre {
     }*/
     
     public double getCout(){
-        cout=this.cout;
         return cout;
     }
     public void setCout(double a){
-        this.cout=a;
+        cout=a;
     }
     
     public double getLmax(){
-        Lmax=this.Lmax;
         return Lmax;
     }
     public void setLmax(double a){
-        this.Lmax=a;
+        Lmax=a;
     }
     
     public double getLmin(){
-        Lmin=this.Lmin;
         return Lmin;
     }
     public void setLmin(double a){
-        this.Lmin=a;
+        Lmin=a;
     }
     
     public double getRtmax(){
-        Rtmax=this.Rtmax;
         return Rtmax;
     }
     public void setRtmax(double a){
-        this.Rtmax=a;
+        Rtmax=a;
     }
         
     public double getRcmax(){
-        Rcmax=this.Rcmax;
         return Rcmax;
     }
     public void setRcmax(double a){
-        this.Rcmax=a;
+        Rcmax=a;
     }
     
     public String toString(){
-        String res="Type"+this.ident;
+        String res="Type"+ident;
         return res;
     }
     

@@ -17,38 +17,38 @@ public class Treillis {
     private Catalogue CATA;
     
     //constructeurs
-    //créer un Treillis avec les paramètres indiqués
-    public Treillis(Terrain T, NoeudSimple[] ListeNoeudSimple, NoeudAppui[] ListeNoeudAppui, Barre[] ListeBarre, Catalogue CATA){
-        this.T = T;
+    //crée un Treillis avec les paramètres indiqués
+    public Treillis(Terrain Terrain, NoeudSimple[] ListeNoeudSimple, NoeudAppui[] ListeNoeudAppui, Barre[] ListeBarre, Catalogue CATA){
+        T = Terrain;
         this.ListeNoeudSimple = ListeNoeudSimple;
         this.ListeNoeudAppui = ListeNoeudAppui;
         this.ListeBarre = ListeBarre;
         this.CATA = CATA;
     }
     
-    //créer un Treillis avec des tableaux vides à partir d'un Terrain et d'un Catalogue
+    //crée un Treillis avec des tableaux vides à partir d'un Terrain et d'un Catalogue
     public Treillis(Terrain T, Catalogue CATA){
         this(T, new NoeudSimple[255], new NoeudAppui[255], new Barre[255], CATA);
     }
     
-    //créer un NoeudAppui et l'ajoute dans une case vide du tableau du Treillis
+    //crée un NoeudAppui et l'ajoute dans une case vide du tableau du Treillis
     public void ajoutAppui(Terrain T, TriangleTerrain TT, int j, double α){
         int i=0;
-        while (i< this.ListeNoeudAppui.length){
-            if(this.ListeNoeudAppui[i]==null){
-                this.ListeNoeudAppui[i] = new NoeudAppui(T, TT, j, α);
-                i=this.ListeNoeudAppui.length +1;
+        while (i< ListeNoeudAppui.length){
+            if(ListeNoeudAppui[i]==null){
+                ListeNoeudAppui[i] = new NoeudAppui(T, TT, j, α);
+                i=ListeNoeudAppui.length +1;
             }
             i++;
         }
     }
-    //créer un NoeudSimple et l'ajoute dans une case vide du tableau du Treillis
+    //crée un NoeudSimple et l'ajoute dans une case vide du tableau du Treillis
     public void ajoutNoeudSimple(Terrain T, double abs, double ord){
         int i=0;
-        while (i< this.ListeNoeudSimple.length){
-            if(this.ListeNoeudSimple[i]==null){
-                this.ListeNoeudSimple[i] = new NoeudSimple(T, abs, ord);
-                i=this.ListeNoeudSimple.length;
+        while (i< ListeNoeudSimple.length){
+            if(ListeNoeudSimple[i]==null){
+                ListeNoeudSimple[i] = new NoeudSimple(T, abs, ord);
+                i=ListeNoeudSimple.length;
             }
             i++;
         }
@@ -58,10 +58,10 @@ public class Treillis {
     //cas où les deux Noeuds sont des NoeudsSimples
     public void ajoutBarre(NoeudSimple N1, NoeudSimple N2, TypeBarre type){
         int i=0;
-        while (i< this.ListeBarre.length){
-            if(this.ListeBarre[i]==null){
-                this.ListeBarre[i] = new Barre(N1, N2, type);
-                i=this.ListeBarre.length;
+        while (i< ListeBarre.length){
+            if(ListeBarre[i]==null){
+                ListeBarre[i] = new Barre(N1, N2, type);
+                i=ListeBarre.length;
             }
             i++;
         }
@@ -69,10 +69,10 @@ public class Treillis {
     //cas où le Noeud de départ est un NoeudAppui
     public void ajoutBarre(NoeudAppui NA1, NoeudSimple N2, TypeBarre type){
         int i=0;
-        while (i< this.ListeBarre.length){
-            if(this.ListeBarre[i]==null){
-                this.ListeBarre[i] = new Barre(NoeudAppui.donneNoeudSimpleAssocie(NA1), N2, type);
-                i=this.ListeBarre.length;
+        while (i< ListeBarre.length){
+            if(ListeBarre[i]==null){
+                ListeBarre[i] = new Barre(NoeudAppui.donneNoeudSimpleAssocie(NA1), N2, type);
+                i=ListeBarre.length;
             }
             i++;
         }
@@ -80,10 +80,10 @@ public class Treillis {
     //cas où le Noeud d'arrivée est un NoeudAppui
     public void ajoutBarre(NoeudSimple N1, NoeudAppui NA2, TypeBarre type){
         int i=0;
-        while (i< this.ListeBarre.length){
-            if(this.ListeBarre[i]==null){
-                this.ListeBarre[i] = new Barre(N1, NoeudAppui.donneNoeudSimpleAssocie(NA2), type);
-                i=this.ListeBarre.length;
+        while (i< ListeBarre.length){
+            if(ListeBarre[i]==null){
+                ListeBarre[i] = new Barre(N1, NoeudAppui.donneNoeudSimpleAssocie(NA2), type);
+                i=ListeBarre.length;
             }
             i++;
         }
@@ -91,10 +91,10 @@ public class Treillis {
     //cas où les deux Noeuds sont des NoeudsAppuis
     public void ajoutBarre(NoeudAppui NA1, NoeudAppui NA2, TypeBarre type){
         int i=0;
-        while (i< this.ListeBarre.length){
-            if(this.ListeBarre[i]==null){
-                this.ListeBarre[i] = new Barre(NoeudAppui.donneNoeudSimpleAssocie(NA1), NoeudAppui.donneNoeudSimpleAssocie(NA2), type);
-                i=this.ListeBarre.length;
+        while (i< ListeBarre.length){
+            if(ListeBarre[i]==null){
+                ListeBarre[i] = new Barre(NoeudAppui.donneNoeudSimpleAssocie(NA1), NoeudAppui.donneNoeudSimpleAssocie(NA2), type);
+                i=ListeBarre.length;
             }
             i++;
         }
@@ -102,7 +102,7 @@ public class Treillis {
     
     //supprime la Barre associée à la case indiquée dans ListeBarre
     public void supprBarre(int i){
-        this.ListeBarre[i] = null;
+        ListeBarre[i] = null;
     }
     //supprime l'Appui associée à la case indiquée dans ListeNoeudAppui ainsi que les Barres dont il est une extrémité
     public void supprAppui(int i){
@@ -148,20 +148,20 @@ public class Treillis {
             j++;
             comprend = false;
         }
-        this.ListeNoeudSimple[i] = null;
+        ListeNoeudSimple[i] = null;
     }
     
     //renvoie le Noeud associé à la case indiquée du tableau ListeNoeudSimple
     public NoeudSimple donneNoeudTreillis(int i){
-        return this.ListeNoeudSimple[i];
+        return ListeNoeudSimple[i];
     }
     //renvoie l'Appui associé à la case indiquée du tableau ListeNoeudAppui
     public NoeudAppui donneAppuiTreillis(int i){
-        return this.ListeNoeudAppui[i];
+        return ListeNoeudAppui[i];
     }
     //renvoie la Barre associée à la case indiquée du tableau ListeBarre
     public Barre donneBarreTreillis(int i){
-        return this.ListeBarre[i];
+        return ListeBarre[i];
     }
     
     //affichage

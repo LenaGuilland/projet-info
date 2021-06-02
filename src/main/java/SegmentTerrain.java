@@ -31,13 +31,13 @@ public class SegmentTerrain {
     
     //crée un SegmentTerrain à partir de 2 Points
     public SegmentTerrain(Point A, Point B){
-        this.i = numero;
+        i = numero;
         //on fixe les deux Points
-        this.depart= A;
-        this.arrivee= B;
+        depart= A;
+        arrivee= B;
         //on sauvegarde les Points et le SegmentTerrain créés
-        ListePoint [0][numero] = this.depart;
-        ListePoint [1][numero] = this.arrivee;
+        ListePoint [0][numero] = depart;
+        ListePoint [1][numero] = arrivee;
         ListeSegment[numero] = this;
         numero++;
     }
@@ -51,10 +51,10 @@ public class SegmentTerrain {
         return arrivee;
     }
     public int getIdent(){
-        return this.i;
+        return i;
     }
-    public void setIdent(int i){
-        this.i=i;
+    public void setIdent(int ident){
+        i=ident;
     }
     
     
@@ -65,17 +65,17 @@ public class SegmentTerrain {
         depart.setOrd(A.getOrd());
         depart.setIdent(A.getIdent());
         //on sauvegarde le point de départ
-        ListePoint [0][this.i] = this.depart;
+        ListePoint [0][i] = depart;
         
         //on fixe le point d'arrivée
         arrivee.setAbs(B.getAbs());
         arrivee.setOrd(B.getOrd());
         arrivee.setIdent(B.getIdent());
         //on sauvegarde le point d'arrivée
-        ListePoint [1][this.i] = this.arrivee;
+        ListePoint [1][i] = arrivee;
         
         //on sauvegarde le segment
-        ListeSegment[this.i] = this;
+        ListeSegment[i] = this;
     }
     
     
@@ -137,7 +137,7 @@ public class SegmentTerrain {
     
     //affichage
     public String toString(){
-        String res ="ST"+i+" = [ "+ListePoint[0][this.i]+" ; "+ListePoint[1][this.i]+" ]";
+        String res ="ST"+i+" = [ "+ListePoint[0][i]+" ; "+ListePoint[1][i]+" ]";
         return res;
     }
     

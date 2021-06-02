@@ -43,19 +43,19 @@ public class TriangleTerrain {
     //constructeurs
     //crée un TriangleTerrain à partir de 3 Points et de 3 SegmentTerrains
     public TriangleTerrain(Point PT1, Point PT2, Point PT3, SegmentTerrain ST1, SegmentTerrain ST2, SegmentTerrain ST3){
-        this.i = numero;
-        this.PTi1 = PT1;
-        this.PTi2 = PT2;
-        this.PTi3 = PT3;
-        ListePoint [0][numero] = this.PTi1;
-        ListePoint [1][numero] = this.PTi2;
-        ListePoint [2][numero] = this.PTi3;
-        this.STi1 = ST1;
-        this.STi2 = ST2;
-        this.STi3 = ST3;
-        ListeSegment [0][numero] = this.STi1;
-        ListeSegment [1][numero] = this.STi2;
-        ListeSegment [2][numero] = this.STi3;
+        i = numero;
+        PTi1 = PT1;
+        PTi2 = PT2;
+        PTi3 = PT3;
+        ListePoint [0][numero] = PTi1;
+        ListePoint [1][numero] = PTi2;
+        ListePoint [2][numero] = PTi3;
+        STi1 = ST1;
+        STi2 = ST2;
+        STi3 = ST3;
+        ListeSegment [0][numero] = STi1;
+        ListeSegment [1][numero] = STi2;
+        ListeSegment [2][numero] = STi3;
         ListeTriangle [numero] = this;
         numero++;
     }
@@ -75,37 +75,37 @@ public class TriangleTerrain {
     
     //méthode get/set
     public int getIdent(){
-        return this.i;
+        return i;
     }
     
     
     //modifie un TriangleTerrain à partir de 3 Points
     public void Triplet(Point PT1, Point PT2, Point PT3){
         //on fixe le point PTi1
-        this.PTi1.setAbs(PT1.getAbs());
-        this.PTi1.setOrd(PT1.getOrd());
-        this.PTi1.setIdent(PT1.getIdent());
-        ListePoint [0][numero] = this.PTi1;
+        PTi1.setAbs(PT1.getAbs());
+        PTi1.setOrd(PT1.getOrd());
+        PTi1.setIdent(PT1.getIdent());
+        ListePoint [0][numero] = PTi1;
         
         //on fixe le point PTi2
-        this.PTi2.setAbs(PT2.getAbs());
-        this.PTi2.setOrd(PT2.getOrd());
-        this.PTi2.setIdent(PT2.getIdent());
-        ListePoint [1][numero] = this.PTi2;
+        PTi2.setAbs(PT2.getAbs());
+        PTi2.setOrd(PT2.getOrd());
+        PTi2.setIdent(PT2.getIdent());
+        ListePoint [1][numero] = PTi2;
         
         //on fixe le point PTi3
-        this.PTi3.setAbs(PT3.getAbs());
-        this.PTi3.setOrd(PT3.getOrd());
-        this.PTi3.setIdent(PT3.getIdent());
-        ListePoint [2][numero] = this.PTi3;
+        PTi3.setAbs(PT3.getAbs());
+        PTi3.setOrd(PT3.getOrd());
+        PTi3.setIdent(PT3.getIdent());
+        ListePoint [2][numero] = PTi3;
         
         //on crée et fixe les 3 segments associés
-        this.STi1.Segment(PT1, PT2);
-        this.STi2.Segment(PT2, PT3);
-        this.STi3.Segment(PT3, PT1);
-        ListeSegment [0][numero] = this.STi1;
-        ListeSegment [1][numero] = this.STi2;
-        ListeSegment [2][numero] = this.STi3;
+        STi1.Segment(PT1, PT2);
+        STi2.Segment(PT2, PT3);
+        STi3.Segment(PT3, PT1);
+        ListeSegment [0][numero] = STi1;
+        ListeSegment [1][numero] = STi2;
+        ListeSegment [2][numero] = STi3;
         
         //on sauvegarde le TT
         ListeTriangle [numero] = this;
@@ -113,8 +113,8 @@ public class TriangleTerrain {
    
     //affichage
     public String toString(){
-        String res ="TriangleTerrain TT"+this.i+" comprend le triplet de point : [ "+this.PTi1+" ; "+this.PTi2+" ; "+this.PTi3+" ]\n";
-        res = res+"et les ST : "+this.STi1+" , "+this.STi2+" , "+this.STi3;
+        String res ="TriangleTerrain TT"+i+" comprend le triplet de point : [ "+PTi1+" ; "+PTi2+" ; "+PTi3+" ]\n";
+        res = res+"et les ST : "+STi1+" , "+STi2+" , "+STi3;
         return res;
     }
 
@@ -122,7 +122,7 @@ public class TriangleTerrain {
     //renvoie TRUE lorsque le Point P est compris dans le TriangleTerrain fourni
     public boolean Comprend(Point P){
         //on considère le point comme étant dans le TT lorsque tous les angles formés avec les ST sont aigus ou optus (tous positifs ou tous négatifs) ET qu'il n'est pas colinéaire à l'un des ST
-        if( ( ( (SegmentTerrain.Positif(this.STi1,P)==true)&&(SegmentTerrain.Positif(this.STi2,P)==true)&&(SegmentTerrain.Positif(this.STi3,P)==true) ) || ( (SegmentTerrain.Negatif(this.STi1,P)==true)&&(SegmentTerrain.Negatif(this.STi2,P)==true)&&(SegmentTerrain.Negatif(this.STi3,P)==true)) ) && (SegmentTerrain.Colineaire(STi1, P)==false) && (SegmentTerrain.Colineaire(STi2, P)==false) && (SegmentTerrain.Colineaire(STi3, P)==false) ){
+        if( ( ( (SegmentTerrain.Positif(STi1,P)==true)&&(SegmentTerrain.Positif(STi2,P)==true)&&(SegmentTerrain.Positif(STi3,P)==true) ) || ( (SegmentTerrain.Negatif(STi1,P)==true)&&(SegmentTerrain.Negatif(STi2,P)==true)&&(SegmentTerrain.Negatif(STi3,P)==true)) ) && (SegmentTerrain.Colineaire(STi1, P)==false) && (SegmentTerrain.Colineaire(STi2, P)==false) && (SegmentTerrain.Colineaire(STi3, P)==false) ){
             return true;
         } else {
             return false;
@@ -130,19 +130,11 @@ public class TriangleTerrain {
         //la méthode renvoie également FALSE lorsque P a les même coordonnées qu'un des 3 points de TTS
     }
     
-    //renvoie le TT associé à l'identificateur indiqué
-    public static TriangleTerrain chercherTT(int ident){
-        return ListeTriangle[ident];
-    }
+    
     
     //renvoie le Point n°j du TriangleTerrain indiqué
     public static Point chercherPTdeTT(int j, TriangleTerrain TT){
         return ListePoint[j][TT.getIdent()];
-    }
-    
-    //renvoie la dimension du tableau
-    public static int TailleListeTriangleTerrain(){
-        return ListeTriangle.length;
     }
     
     

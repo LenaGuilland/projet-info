@@ -16,13 +16,13 @@ public class Noeud {
     
     //constructeur
     public Noeud(){
-        this.i = numero;
+        i = numero;
         numero++;
     }
     
     //méthodes get/set
     public int getIdent(){
-        return this.i;
+        return i;
     }
     
 }

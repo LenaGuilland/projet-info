@@ -14,8 +14,8 @@ public class Catalogue {
     private TypeBarre bois;
     
     public Catalogue(){
-        this.acier = barreAcier();
-        this.bois = barreBois();
+        acier = barreAcier();
+        bois = barreBois();
     }
         
     public TypeBarre barreAcier(){
@@ -41,10 +41,10 @@ public class Catalogue {
     
     //méthodes get/set
     public TypeBarre getAcier(){
-        return this.acier;
+        return acier;
     }
     public TypeBarre getBois(){
-        return this.bois;
+        return bois;
     }
     
     

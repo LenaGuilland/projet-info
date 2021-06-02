@@ -24,14 +24,14 @@ public class NoeudSimple extends Noeud {
         
         //la variable DansUnTT devient TRUE lorsque P est compris dans un des TriangleTerrain créés
         int i =0;
-        //on parcourt toutes les cases du tableau et on cherche si le point est compris dans au moins un des TriangleTerrain
-        while(i<TriangleTerrain.TailleListeTriangleTerrain()){
-            TTi = TriangleTerrain.chercherTT(i);
+        //on cherche si le point est compris dans au moins un des TriangleTerrain du Terrain
+        while(i<T.TailleListeTriangle()){
+            TTi = T.chercherTT(i);
             if(TTi==null){
-                i=TriangleTerrain.TailleListeTriangleTerrain();
+                i=T.TailleListeTriangle();
             } else if(TTi.Comprend(P)==true){
                 DansUnTT = true;
-                i=TriangleTerrain.TailleListeTriangleTerrain();
+                i=T.TailleListeTriangle();
             }
             i++;
         }
@@ -66,22 +66,20 @@ public class NoeudSimple extends Noeud {
     
     //tester classe NoeudSimple
     public static void main (String[] args){
-        /*
+        
         Terrain T = new Terrain(-1,1,-1,1);
-        TriangleTerrain TT1 = new TriangleTerrain(new Point(-1,-1), new Point(1,-1), new Point(-1,1));
-        TriangleTerrain TT2 = new TriangleTerrain(new Point(-1,1), new Point(1,-1), new Point(1,1));
-        System.out.println(TT1);
-        System.out.println(TT2);
+        T.ajoutTT(new Point(-1,-1), new Point(1,-1), new Point(-1,1));
+        
         NoeudSimple NS3 = new NoeudSimple(T,0.5,0.5);
         System.out.println(NS3);
         
 
         NoeudSimple NS = new NoeudSimple(T,0,0);
         System.out.println(NS);
-        NoeudSimple NS1 = new NoeudSimple(T,1,0);
+        NoeudSimple NS1 = new NoeudSimple(T,-1,0);
         System.out.println(NS1);
         NoeudSimple NS2 = new NoeudSimple(T,0,1);
         System.out.println(NS2);
-        */
+        
     }
 }

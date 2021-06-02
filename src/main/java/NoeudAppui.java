@@ -25,7 +25,7 @@ public class NoeudAppui extends Noeud {
     //constructeur
     //crée un NoeudAppui dont on connait tous les paramètres
     public NoeudAppui (Terrain T, TriangleTerrain TT, int j, double α){
-        this.TTi = TT;
+        TTi = TT;
         //j ne peut avoir comme valeur que 0, 1 et 2
         //i doit être compris au sens large entre 0 et 1
         if((j<0)||(j>=3)){
@@ -56,21 +56,21 @@ public class NoeudAppui extends Noeud {
     //renvoie l'abscisse de l'appui
     public double absAppui(){
         //récupère le point de départ du segment
-        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(this.j, this.TTi));
+        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(j, TTi));
         //récupère le point d'arrivée du segment
         Point PTik = new Point(TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi));
         
-        return this.α*PTij.getAbs()+(1-this.α)*PTik.getAbs();
+        return α*PTij.getAbs()+(1-α)*PTik.getAbs();
     }
     
     //renvoie l'ordonnée de l'appui
     public double ordAppui(){
         //récupère le point de départ du segment
-        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(this.j, this.TTi));
+        Point PTij = new Point(TriangleTerrain.chercherPTdeTT(j, TTi));
         //récupère le point d'arrivée du segment
         Point PTik = new Point(TriangleTerrain.chercherPTdeTT(numeroSuivant(j), TTi));
         
-        return this.α*PTij.getOrd()+(1-this.α)*PTik.getOrd();
+        return α*PTij.getOrd()+(1-α)*PTik.getOrd();
     }
     
     //renvoie l'Appui associé à l'identificateur indiqué
@@ -94,6 +94,7 @@ public class NoeudAppui extends Noeud {
     public static void main (String[] args){
         int j=2;
         System.out.println(numeroSuivant(j));
+        
         Point D = new Point(0,0);
         Point E = new Point(2,0);
         Point F = new Point(0,2);
